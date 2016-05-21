@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "com.mymapper.mapper.CommonMapper">
+    <select id = "getById" resultType = "Object">
+        SELECT * FROM TABLE_NAME WHERE IDENTITY = #{_id}
+    </select>
+
+    <select id = "getFieldsById" resultType = "Object">
+        SELECT
+        <foreach collection = "_fieldList" item = "field" separator = ",">
+            ${field}
+        </foreach>
+        FROM TABLE_NAME WHERE IDENTITY = #{_id}
+    </select>
+
+    <select id = "getFieldsByEntity" resultType = "Object">
+        SELECT
+        <if test = "_fieldList == null">
+            *
+        </if>
+        <if test = "_fieldList != null">
+            <foreach collection = "_fieldList" item = "field" separator = ",">
+                ${field}
+            </foreach>
+        </if>
+        FROM TABLE_NAME WHERE WHERE_FIELD
+    </select>
+
+    <select id = "queryFieldsByEntity" resultType = "Object">
+        SELECT
+        <if test = "_fieldList == null">
+            *
+        </if>
+        <if test = "_fieldList != null">
+            <foreach collection = "_fieldList" item = "field" separator = ",">
+                ${field}
+            </foreach>
+        </if>
+        FROM TABLE_NAME WHERE WHERE_FIELD
+    </select>
+
+    <select id = "queryFieldsByWhere" resultType = "Object">
+        SELECT
+        <if test = "_fieldList == null">
+            *
+        </if>
+        <if test = "_fieldList != null">
+            <foreach collection = "_fieldList" item = "field" separator = ",">
+                ${field}
+            </foreach>
+        </if>
+        FROM TABLE_NAME WHERE WHERE_FIELD
+    </select>
+
+    <update id = "updateById">
+        UPDATE TABLE_NAME SET UPDATE_FIELD WHERE IDENTITY = #{_id}
+    </update>
+
+    <update id = "updateByWhere">
+        UPDATE TABLE_NAME SET UPDATE_FIELD WHERE WHERE_FIELD
+    </update>
+
+    <insert id = "create" useGeneratedKeys = "true">
+        INSERT INTO TABLE_NAME (CREATE_KEY) VALUES (CREATE_VALUE)
+    </insert>
+
+    <insert id = "batchCreate" useGeneratedKeys = "true">
+        INSERT INTO TABLE_NAME (CREATE_KEY) VALUES
+        <foreach collection = "list" item = "entity" separator = ",">
+            (CREATE_VALUE)
+        </foreach>
+    </insert>
+
+
+    <delete id = "deleteById">
+        DELETE FROM TABLE_NAME WHERE IDENTITY = #{_id}
+    </delete>
+
+    <delete id = "deleteByEntity">
+        DELETE FROM TABLE_NAME WHERE WHERE_FIELD
+    </delete>
+
+    <delete id = "deleteByWhere">
+        DELETE FROM TABLE_NAME WHERE WHERE_FIELD
+    </delete>
+
+    <update id = "resetAutoIncrement">
+        ALTER TABLE t_user AUTO_INCREMENT = 1
+    </update>
+</mapper>

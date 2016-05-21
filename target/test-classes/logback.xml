@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<configuration>
+    <!-- ch.qos.logback.core.ConsoleAppender 控制台输出 -->
+    <appender name = "console" class = "ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!--<pattern>[%-5level] %d{HH:mm:ss.SSS} [%thread] %logger{36} - %msg%n</pattern>-->
+            <pattern>
+                <!--===================-->
+                [%level]%d{HH:mm:ss.SSS} %logger{50}%n[%level]日志====-> %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- 日志级别 -->
+    <root>
+        <level value = "DEBUG"/>
+        <appender-ref ref = "console"/>
+    </root>
+
+    <!-- mybatis日志， 在mybatis-config中设置了日志前缀为mybatis -->
+    <logger name = "mybatis" level = "DEBUG"/>
+</configuration>
